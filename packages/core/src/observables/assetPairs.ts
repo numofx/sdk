@@ -1,4 +1,4 @@
-import { bytesToBytes32, decimal18ToDecimalN } from '@yield-protocol/ui-math';
+import { bytesToBytes32, decimal18ToDecimalN } from '@numo-engine/math';
 import { BigNumber, ethers } from 'ethers';
 import { BehaviorSubject, filter, first, lastValueFrom, map, Observable, share, shareReplay, withLatestFrom } from 'rxjs';
 

@@ -18,5 +18,13 @@ exports.baseAddresses = new Map([
             Witch: '0x08173D0885B00BDD640aaE57D05AbB74cd00d669',
         },
     ],
+    [
+        42220,
+        {
+            Cauldron: '0x0000000000000000000000000000000000000000',
+            Ladle: '0x0000000000000000000000000000000000000000',
+            Witch: '0x0000000000000000000000000000000000000000', // Not deployed - pools only
+        },
+    ],
 ]);
 //# sourceMappingURL=baseConfig.js.map

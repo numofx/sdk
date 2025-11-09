@@ -34,3 +34,13 @@ yarn-error.log*
 
 # npmrc
 .npmrc
+
+# Lock files - Bun only
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.yarn/
+.pnpm-store/
+
+# Keep Bun lockfile
+!bun.lock

@@ -1,4 +1,4 @@
-import { calculateSlippage, fyTokenForMint, calcPoolRatios, splitLiquidity } from '@yield-protocol/ui-math';
+import { calculateSlippage, fyTokenForMint, calcPoolRatios, splitLiquidity } from '@numo-engine/math';
 import { ethers, BigNumber } from 'ethers';
 import { combineLatest, take } from 'rxjs';
 import { sign, transact } from '../chainActions';

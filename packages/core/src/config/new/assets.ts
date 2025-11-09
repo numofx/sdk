@@ -68,6 +68,10 @@ export const FUSDC2306 = '0x40321200028B';
 
 export const CRAB = '0x333800000000'
 
+/* Celo assets */
+export const cKES = '0x404000000000';
+export const USDT_CELO = '0x404100000000';
+
 export const CONVEX_BASED_ASSETS = [
   'CVX3CRV',
   CVX3CRV,
@@ -524,10 +528,39 @@ ASSETS_42161.set(WETH, {
   isYieldBase: true,
 });
 
+/* Celo Mainnet Assets (Chain ID: 42220) */
+export const ASSETS_42220 = new Map<string, AssetStaticInfo>();
+
+ASSETS_42220.set(cKES, {
+  version: '1',
+  name: 'Celo Kenyan Shilling',
+  decimals: 18,
+  symbol: 'cKES',
+  showToken: true,
+  digitFormat: 2,
+  tokenType: TokenType.ERC20_Permit,
+  assetAddress: '0x456a3D042C0DbD3db53D5489e98dFb038553B0d0',
+  joinAddress: '0x0000000000000000000000000000000000000000', // Not used - pools only
+  isYieldBase: true,
+});
+
+ASSETS_42220.set(USDT_CELO, {
+  version: '1',
+  name: 'Tether USD',
+  decimals: 6,
+  symbol: 'USDT',
+  showToken: true,
+  digitFormat: 2,
+  tokenType: TokenType.ERC20_Permit,
+  assetAddress: '0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e',
+  joinAddress: '0x0000000000000000000000000000000000000000', // Not used - pools only
+  isYieldBase: true,
+});
 
 const ASSETS = new Map( [
   [1, ASSETS_1],
   [42161, ASSETS_42161],
+  [42220, ASSETS_42220],
 ])
 
 export default ASSETS;

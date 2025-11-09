@@ -1,4 +1,4 @@
-import { buyBase, calculateMinCollateral, decimalNToDecimal18, maxFyTokenIn } from '@yield-protocol/ui-math';
+import { buyBase, calculateMinCollateral, decimalNToDecimal18, maxFyTokenIn } from '@numo-engine/math';
 import { BigNumber } from 'ethers';
 import { combineLatest, filter, map, Observable } from 'rxjs';
 import { assetPairsø, selectedø } from '../observables';

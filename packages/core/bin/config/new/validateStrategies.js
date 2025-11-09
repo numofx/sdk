@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateStrategies = void 0;
 const tslib_1 = require("tslib");
-const ui_contracts_1 = require("@yield-protocol/ui-contracts");
+const contracts_1 = require("@numo-engine/contracts");
 const strategies_1 = tslib_1.__importDefault(require("./strategies"));
 const validateStrategies = (provider) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     const preText = '### STRATEGY VALIDATION ERROR ### ';
     const chainId = (yield provider.getNetwork()).chainId;
     const strategyList = strategies_1.default.get(chainId);
     strategyList.forEach((s) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        const strategy = ui_contracts_1.Strategy__factory.connect(s.address, provider);
+        const strategy = contracts_1.Strategy__factory.connect(s.address, provider);
         try {
             const [symbol, baseId, name, decimals, version] = yield Promise.all([
                 strategy.symbol(),

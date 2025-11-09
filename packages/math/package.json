@@ -1,15 +1,15 @@
 {
-  "name": "@yield-protocol/ui-math",
+  "name": "@numo-engine/math",
   "version": "1.0.14",
   "main": "./bin/index.js",
   "repository": {
-    "url": "git+https://github.com/yieldprotocol/ui-monorepo.git",
+    "url": "git+https://github.com/numo/sdk.git",
     "type": "git"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
-  "author": "Yield Inc.",
+  "author": "Numo",
   "license": "MIT",
   "scripts": {
     "compile": "tsc -b --force",
@@ -17,10 +17,14 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "chai": "^4.3.6"
+    "chai": "^4.3.6",
+    "decimal.js": "^10.4.3",
+    "ethers": "^5.5.4",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.1"
+    "@types/chai": "^4.3.1",
+    "ethereum-waffle": "^3.2.0"
   },
   "gitHead": "03f3a9379b4ede32597da7fdd3c641291e17510d"
 }

@@ -22,7 +22,7 @@ is Mature?        N     +--------+
                +-----------+
  */
 
-import { burnFromStrategy, burn, newPoolState, sellFYToken, calcPoolRatios } from '@yield-protocol/ui-math';
+import { burnFromStrategy, burn, newPoolState, sellFYToken, calcPoolRatios } from '@numo-engine/math';
 import { ethers, BigNumber } from 'ethers';
 import { combineLatest, take } from 'rxjs';
 import { sign, transact } from '../chainActions';

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildOracleMap = void 0;
 const tslib_1 = require("tslib");
-const contracts = tslib_1.__importStar(require("@yield-protocol/ui-contracts"));
+const contracts = tslib_1.__importStar(require("@numo-engine/contracts"));
 const config_1 = require("../config");
 const buildOracleMap = (provider, chainId) => {
     /** Get addresses of the oracle contracts */

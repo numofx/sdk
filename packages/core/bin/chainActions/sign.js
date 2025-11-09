@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sign = void 0;
 const tslib_1 = require("tslib");
 const eth_permit_1 = require("eth-permit");
-const ui_contracts_1 = require("@yield-protocol/ui-contracts");
+const contracts_1 = require("@numo-engine/contracts");
 const types_1 = require("../types");
 const constants_1 = require("../utils/constants");
 const transactions_1 = require("../observables/transactions");
@@ -136,7 +136,7 @@ const sign = (requestedSignatures, processCode) => tslib_1.__awaiter(void 0, voi
         if (reqSig.target.tokenType === types_1.TokenType.ERC1155) {
             console.log('Approval via transaction: ERC1155');
             /* if token type is ERC1155 then set approval 'ApprovalForAll' */
-            const connectedERC1155 = ui_contracts_1.ERC1155__factory.connect(reqSig.target.address, signer);
+            const connectedERC1155 = contracts_1.ERC1155__factory.connect(reqSig.target.address, signer);
             yield connectedERC1155
                 .setApprovalForAll(reqSig.spender, true)
                 .catch((err) => _handleSignError(err, processCode));
@@ -151,7 +151,7 @@ const sign = (requestedSignatures, processCode) => tslib_1.__awaiter(void 0, voi
         else {
             console.log('Approval via transaction: ERC20');
             /* else use a regular approval */
-            const connectedERC20 = ui_contracts_1.ERC20Permit__factory.connect(reqSig.target.address, signer);
+            const connectedERC20 = contracts_1.ERC20Permit__factory.connect(reqSig.target.address, signer);
             yield connectedERC20
                 .approve(reqSig.spender, reqSig.amount)
                 .catch((err) => _handleSignError(err, processCode));

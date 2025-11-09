@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ASSETS_1 = exports.ASSETS_42161 = exports.IGNORE_BASE_ASSETS = exports.ETH_BASED_ASSETS = exports.CONVEX_BASED_ASSETS = exports.CRAB = exports.FUSDC2306 = exports.FDAI2306 = exports.FETH2306 = exports.FUSDC2303 = exports.FDAI2303 = exports.FETH2303 = exports.FUSDC2212 = exports.FDAI2212 = exports.FETH2212 = exports.CVX3CRV = exports.FUSDC2209 = exports.FDAI2209 = exports.FUSDC2206 = exports.FDAI2206 = exports.FUSDC2203 = exports.FDAI2203 = exports.FRAX = exports.MKR = exports.yvUSDC = exports.UNI = exports.ENS = exports.LINK = exports.wstETH = exports.stETH = exports.WBTC = exports.USDC = exports.DAI = exports.WETH = exports.TokenType = void 0;
+exports.ASSETS_42220 = exports.ASSETS_1 = exports.ASSETS_42161 = exports.IGNORE_BASE_ASSETS = exports.ETH_BASED_ASSETS = exports.CONVEX_BASED_ASSETS = exports.USDT_CELO = exports.cKES = exports.CRAB = exports.FUSDC2306 = exports.FDAI2306 = exports.FETH2306 = exports.FUSDC2303 = exports.FDAI2303 = exports.FETH2303 = exports.FUSDC2212 = exports.FDAI2212 = exports.FETH2212 = exports.CVX3CRV = exports.FUSDC2209 = exports.FDAI2209 = exports.FUSDC2206 = exports.FDAI2206 = exports.FUSDC2203 = exports.FDAI2203 = exports.FRAX = exports.MKR = exports.yvUSDC = exports.UNI = exports.ENS = exports.LINK = exports.wstETH = exports.stETH = exports.WBTC = exports.USDC = exports.DAI = exports.WETH = exports.TokenType = void 0;
 var TokenType;
 (function (TokenType) {
     TokenType[TokenType["ERC20_"] = 0] = "ERC20_";
@@ -41,6 +41,9 @@ exports.FETH2306 = '0x40301200028B';
 exports.FDAI2306 = '0x40311200028B';
 exports.FUSDC2306 = '0x40321200028B';
 exports.CRAB = '0x333800000000';
+/* Celo assets */
+exports.cKES = '0x404000000000';
+exports.USDT_CELO = '0x404100000000';
 exports.CONVEX_BASED_ASSETS = [
     'CVX3CRV',
     exports.CVX3CRV,
@@ -454,9 +457,36 @@ exports.ASSETS_42161.set(exports.WETH, {
     joinAddress: '0xaf93a04d5D8D85F69AF65ED66A9717DB0796fB10',
     isYieldBase: true,
 });
+/* Celo Mainnet Assets (Chain ID: 42220) */
+exports.ASSETS_42220 = new Map();
+exports.ASSETS_42220.set(exports.cKES, {
+    version: '1',
+    name: 'Celo Kenyan Shilling',
+    decimals: 18,
+    symbol: 'cKES',
+    showToken: true,
+    digitFormat: 2,
+    tokenType: TokenType.ERC20_Permit,
+    assetAddress: '0x456a3D042C0DbD3db53D5489e98dFb038553B0d0',
+    joinAddress: '0x0000000000000000000000000000000000000000',
+    isYieldBase: true,
+});
+exports.ASSETS_42220.set(exports.USDT_CELO, {
+    version: '1',
+    name: 'Tether USD',
+    decimals: 6,
+    symbol: 'USDT',
+    showToken: true,
+    digitFormat: 2,
+    tokenType: TokenType.ERC20_Permit,
+    assetAddress: '0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e',
+    joinAddress: '0x0000000000000000000000000000000000000000',
+    isYieldBase: true,
+});
 const ASSETS = new Map([
     [1, exports.ASSETS_1],
     [42161, exports.ASSETS_42161],
+    [42220, exports.ASSETS_42220],
 ]);
 exports.default = ASSETS;
 //# sourceMappingURL=assets.js.map

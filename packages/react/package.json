@@ -1,22 +1,22 @@
 {
-  "name": "@yield-protocol/ui-react",
+  "name": "@numo-engine/react",
   "version": "1.0.8",
   "main": "./bin/index.js",
   "repository": {
-    "url": "git+https://github.com/yieldprotocol/ui-monorepo.git",
+    "url": "git+https://github.com/numo/sdk.git",
     "type": "git"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
-  "author": "Yield Inc.",
+  "author": "Numo",
   "license": "MIT",
   "scripts": {
     "compile": "tsc -b",
     "watch": " tsc -b -w"
   },
   "dependencies": {
-    "@yield-protocol/ui-core": "^1.0.9",
+    "@numo-engine/core": "^1.0.9",
     "react": "^17.0.2"
   },
   "devDependencies": {

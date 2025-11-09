@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rollLend = void 0;
 const tslib_1 = require("tslib");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const ethers_1 = require("ethers");
 const rxjs_1 = require("rxjs");
 const chainActions_1 = require("../chainActions");
@@ -24,9 +24,9 @@ const rollLend = (amount, fromSeries, toSeries) => tslib_1.__awaiter(void 0, voi
         const seriesIsMature = fromSeries.isMature();
         const _fyTokenValueOfInput = seriesIsMature
             ? _amount
-            : (0, ui_math_1.buyBase)(fromSeries.sharesReserves.big, fromSeries.fyTokenReserves.big, _amount, fromSeries.getTimeTillMaturity(), fromSeries.ts, fromSeries.g2, fromSeries.decimals);
+            : (0, math_1.buyBase)(fromSeries.sharesReserves.big, fromSeries.fyTokenReserves.big, _amount, fromSeries.getTimeTillMaturity(), fromSeries.ts, fromSeries.g2, fromSeries.decimals);
         console.log(_fyTokenValueOfInput.toString());
-        const _minimumFYTokenReceived = (0, ui_math_1.calculateSlippage)(_fyTokenValueOfInput, slippageTolerance.toString(), true);
+        const _minimumFYTokenReceived = (0, math_1.calculateSlippage)(_fyTokenValueOfInput, slippageTolerance.toString(), true);
         const alreadyApproved = (yield fromSeries.fyTokenContract.allowance(account, ladleAddress)).gte(_amount);
         const permitCallData = yield (0, chainActions_1.sign)([
             {

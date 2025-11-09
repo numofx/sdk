@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { IAssetRoot, IYieldConfig, IYieldProtocol } from '../types';
 
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 
 import { baseAddresses } from '../config';
 
@@ -38,7 +38,7 @@ export const buildProtocol = async (
   const strategyRootMap = await buildStrategyMap(provider, chainId, appConfig); // TODO this could be loaded at same time as seriesMap
 
   return {
-    protocolVersion: process.env.YIELD_UI_VERSION || '0.0.0',
+    protocolVersion: process.env.NUMO_ENGINE_VERSION || '1.0.0',
     cauldron,
     ladle,
     witch,

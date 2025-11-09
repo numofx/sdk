@@ -1,4 +1,4 @@
-import { bytesToBytes32, calcAccruedDebt } from '@yield-protocol/ui-math';
+import { bytesToBytes32, calcAccruedDebt } from '@numo-engine/math';
 import { ethers, BigNumber } from 'ethers';
 import {
   BehaviorSubject,

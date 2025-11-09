@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildProtocol = void 0;
 const tslib_1 = require("tslib");
-const contracts = tslib_1.__importStar(require("@yield-protocol/ui-contracts"));
+const contracts = tslib_1.__importStar(require("@numo-engine/contracts"));
 const config_1 = require("../config");
 const initOracles_1 = require("./initOracles");
 const initModules_1 = require("./initModules");
@@ -26,7 +26,7 @@ const buildProtocol = (provider, chainId, appConfig) => tslib_1.__awaiter(void 0
     /* 6. Build the stategyRootMAp - note : async */
     const strategyRootMap = yield (0, initStrategies_1.buildStrategyMap)(provider, chainId, appConfig); // TODO this could be loaded at same time as seriesMap
     return {
-        protocolVersion: process.env.YIELD_UI_VERSION || '0.0.0',
+        protocolVersion: process.env.NUMO_ENGINE_VERSION || '1.0.0',
         cauldron,
         ladle,
         witch,

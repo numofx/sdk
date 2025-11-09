@@ -1,5 +1,5 @@
 import { Contract, PayableOverrides, BigNumber, ContractTransaction } from 'ethers';
-import { Ladle } from '@yield-protocol/ui-contracts';
+import { Ladle } from '@numo-engine/contracts';
 import { accountProviderø, accountø, protocolø } from '../observables/';
 import { ICallData, LadleActions, ProcessStage, TxState } from '../types';
 import { ZERO_BN } from '../utils/constants';

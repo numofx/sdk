@@ -9,7 +9,7 @@ const buildAssetMap = (chainId, provider, appConfig) => tslib_1.__awaiter(void 0
     // const cacheKey = `assets_${chainId}`;
     // const cachedValues = appConfig.browserCaching ? JSON.parse(localStorage.getItem(cacheKey)!) : null;
     /* Select correct Asset map based on chainId */
-    let assetInfoMap = chainId === 1 ? config_1.ASSETS_1 : config_1.ASSETS_42161;
+    let assetInfoMap = chainId === 1 ? config_1.ASSETS_1 : chainId === 42161 ? config_1.ASSETS_42161 : config_1.ASSETS_42220;
     assetInfoMap.forEach((asset, key) => {
         /* build out the assetInfo > assetRoot (fill in default values etc.) */
         const id = key;
@@ -36,7 +36,7 @@ const buildAssetMap = (chainId, provider, appConfig) => tslib_1.__awaiter(void 0
         // Set the 'last checked' block
         // setBrowserCachedValue(`${chainId}_lastSeriesUpdate`, _blockNum);
     }
-    console.log(`Yield Protocol ASSET data updated [Block: ${_blockNum}]`);
+    console.log(`Numo Engine ASSET data updated [Block: ${_blockNum}]`);
     return assetRootMap;
 });
 exports.buildAssetMap = buildAssetMap;

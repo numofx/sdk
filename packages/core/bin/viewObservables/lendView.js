@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.maximumLendRollø = exports.lendPostionValueø = exports.lendValueAtMaturityø = exports.maximumCloseø = exports.isLendingLimitedø = exports.maximumLendø = void 0;
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const rxjs_1 = require("rxjs");
 const observables_1 = require("../observables");
 const utils_1 = require("../utils");
@@ -16,7 +16,7 @@ const input_1 = require("./input");
 exports.maximumLendø = observables_1.selectedø.pipe((0, rxjs_1.map)(({ series, base }) => {
     if (!!series && base) {
         /* checks the protocol limits  (max Base allowed in ) */
-        const _maxBaseIn = (0, ui_math_1.maxBaseIn)(series.sharesReserves.big, series.fyTokenReserves.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
+        const _maxBaseIn = (0, math_1.maxBaseIn)(series.sharesReserves.big, series.fyTokenReserves.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
         return base.balance.big.lt(_maxBaseIn)
             ? base.balance
             : (0, yieldUtils_1.bnToW3bNumber)(_maxBaseIn, base === null || base === void 0 ? void 0 : base.decimals, base === null || base === void 0 ? void 0 : base.digitFormat);
@@ -44,7 +44,7 @@ exports.maximumCloseø = observables_1.selectedø.pipe((0, rxjs_1.map)(({ series
     if (series && series.isMature())
         return series.fyTokenBalance;
     /* else process */
-    const value = (0, ui_math_1.sellFYToken)(series.sharesReserves.big, series.fyTokenReserves.big, ((_a = series.fyTokenBalance) === null || _a === void 0 ? void 0 : _a.big) || utils_1.ZERO_BN, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
+    const value = (0, math_1.sellFYToken)(series.sharesReserves.big, series.fyTokenReserves.big, ((_a = series.fyTokenBalance) === null || _a === void 0 ? void 0 : _a.big) || utils_1.ZERO_BN, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
     const baseReservesWithMargin = series.sharesReserves.big.mul(9999).div(10000); // TODO: figure out why we can't use the base reserves exactly (margin added to facilitate transaction)
     /* If the trade isn't possible, set the max close as total base reserves */
     if (value.lte(utils_1.ZERO_BN) && ((_b = series.fyTokenBalance) === null || _b === void 0 ? void 0 : _b.big.gt(series.sharesReserves.big)))
@@ -60,7 +60,7 @@ exports.maximumCloseø = observables_1.selectedø.pipe((0, rxjs_1.map)(({ series
  * */
 exports.lendValueAtMaturityø = (0, rxjs_1.combineLatest)([input_1.lendInputø, observables_1.selectedø]).pipe((0, rxjs_1.map)(([input, { series }]) => {
     const { sharesReserves, fyTokenReserves } = series;
-    const valueAtMaturity = (0, ui_math_1.sellBase)(sharesReserves.big, fyTokenReserves.big, input.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
+    const valueAtMaturity = (0, math_1.sellBase)(sharesReserves.big, fyTokenReserves.big, input.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
     return (0, yieldUtils_1.bnToW3bNumber)(valueAtMaturity, series === null || series === void 0 ? void 0 : series.decimals);
 }));
 /**
@@ -73,7 +73,7 @@ exports.lendPostionValueø = observables_1.selectedø.pipe((0, rxjs_1.map)(({ se
     if (series && series.isMature())
         return series.fyTokenBalance;
     /* else process */
-    const value = (0, ui_math_1.sellFYToken)(series.sharesReserves.big, series.fyTokenReserves.big, ((_a = series.fyTokenBalance) === null || _a === void 0 ? void 0 : _a.big) || utils_1.ZERO_BN, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
+    const value = (0, math_1.sellFYToken)(series.sharesReserves.big, series.fyTokenReserves.big, ((_a = series.fyTokenBalance) === null || _a === void 0 ? void 0 : _a.big) || utils_1.ZERO_BN, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
     // TODO: check this flow... shoudl we return ZERO. I think so, because if a trade is not possible the value IS 0.
     return value.lte(utils_1.ZERO_BN) ? constants_1.ZERO_W3B : (0, yieldUtils_1.bnToW3bNumber)(value, series === null || series === void 0 ? void 0 : series.decimals);
 }));
@@ -85,10 +85,10 @@ exports.maximumLendRollø = observables_1.selectedø.pipe(
 /* only do calcs if there is a future series selected */
 (0, rxjs_1.filter)((selected) => !!selected.futureSeries && !!selected.series), (0, rxjs_1.map)(({ futureSeries, series }) => {
     var _a, _b;
-    const _maxBaseIn = (0, ui_math_1.maxBaseIn)(futureSeries.sharesReserves.big, futureSeries.fyTokenReserves.big, futureSeries.getTimeTillMaturity(), futureSeries.ts, futureSeries.g1, futureSeries.decimals);
+    const _maxBaseIn = (0, math_1.maxBaseIn)(futureSeries.sharesReserves.big, futureSeries.fyTokenReserves.big, futureSeries.getTimeTillMaturity(), futureSeries.ts, futureSeries.g1, futureSeries.decimals);
     const _fyTokenValue = series.isMature()
         ? ((_a = series.fyTokenBalance) === null || _a === void 0 ? void 0 : _a.big) || utils_1.ZERO_BN
-        : (0, ui_math_1.sellFYToken)(series.sharesReserves.big, series.fyTokenReserves.big, ((_b = series.fyTokenBalance) === null || _b === void 0 ? void 0 : _b.big) || utils_1.ZERO_BN, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
+        : (0, math_1.sellFYToken)(series.sharesReserves.big, series.fyTokenReserves.big, ((_b = series.fyTokenBalance) === null || _b === void 0 ? void 0 : _b.big) || utils_1.ZERO_BN, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
     /* if the protocol is limited return the max rollab as the max base in */
     if (_maxBaseIn.lte(_fyTokenValue))
         return (0, yieldUtils_1.bnToW3bNumber)(_maxBaseIn, series === null || series === void 0 ? void 0 : series.decimals);

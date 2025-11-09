@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { transact } from '../chainActions';
 import { ETH_BASED_ASSETS, CONVEX_BASED_ASSETS } from '../config/assetsConfig';
 import { combineLatest, take } from 'rxjs';
-import { ConvexJoin__factory } from '@yield-protocol/ui-contracts';
+import { ConvexJoin__factory } from '@numo-engine/contracts';
 import { protocolø, accountø, assetsø, chainIdø, providerø } from '../observables';
 import { IVault, ActionCodes, ICallData, LadleActions, RoutedActions } from '../types';
 import { getProcessCode, ONE_BN, ZERO_BN } from '../utils';

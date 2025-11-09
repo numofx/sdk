@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { IStrategyRoot, IYieldConfig } from '../types';
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 
 import { strategyAddresses } from '../config';
 import { getBrowserCachedValue, setBrowserCachedValue } from '../utils/appUtils';
@@ -14,8 +14,9 @@ export const buildStrategyMap = async (
   const strategyList: any[] = (appConfig.browserCaching && getBrowserCachedValue(`${chainId}_strategies`)) || [];
 
   try {
-    await Promise.all(
-      _strategyAddresses!.map(async (strategyAddr) => {
+    if (_strategyAddresses) {
+      await Promise.all(
+        _strategyAddresses.map(async (strategyAddr) => {
         /* if the strategy is NOT already in the cache : */
         if (strategyList.findIndex((_s: any) => _s.address === strategyAddr) === -1) {
           const Strategy = contracts.Strategy__factory.connect(strategyAddr, provider);
@@ -39,8 +40,9 @@ export const buildStrategyMap = async (
           // update state and cache
           strategyList.push(newStrategy);
         }
-      })
-    );
+        })
+      );
+    }
   } catch (e) {
     console.log('Error fetching strategy data: ', e);
   }
@@ -56,7 +58,7 @@ export const buildStrategyMap = async (
     setBrowserCachedValue(`${chainId}_lastStrategyUpdate`, _blockNum);
   }
 
-  console.log(`Yield Protocol STRATEGY data updated [Block: ${_blockNum}]`);
+  console.log(`Numo Engine STRATEGY data updated [Block: ${_blockNum}]`);
   // console.log(strategyRootMap);
 
   return strategyRootMap;

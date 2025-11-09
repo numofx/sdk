@@ -5,7 +5,7 @@ import { IAsset, IAssetRoot, TokenType, W3bNumber } from '../types';
 import { accountø, providerø } from './connection';
 import { protocolø } from './protocol';
 
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 import { ZERO_BN, ZERO_W3B } from '../utils/constants';
 import { MessageType, sendMsg } from './messages';
 import { bnToW3bNumber } from '../utils/yieldUtils';

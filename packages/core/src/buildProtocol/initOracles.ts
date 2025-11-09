@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 
 import { ARBITRUM, ETHEREUM } from '../utils/constants';
 

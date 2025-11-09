@@ -37,11 +37,14 @@ declare const yieldConstants: {
     FDAI2209: "0x313600000000";
     FUSDC2209: "0x313700000000";
     CVX3CRV: "0x313900000000";
+    cKES: "0x404000000000";
+    USDT_CELO: "0x404100000000";
     CONVEX_BASED_ASSETS: string[];
     ETH_BASED_ASSETS: string[];
     IGNORE_BASE_ASSETS: string[];
     ASSETS_42161: Map<string, assetConstants.IAssetInfo>;
     ASSETS_1: Map<string, assetConstants.IAssetInfo>;
+    ASSETS_42220: Map<string, assetConstants.IAssetInfo>;
     MAX_256: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
     MAX_128: "0xffffffffffffffffffffffffffffffff";
     ZERO_BN: import("ethers").BigNumber;
@@ -70,5 +73,6 @@ declare const yieldConstants: {
     ETHEREUM: "ETHEREUM";
     ARBITRUM: "ARBITRUM";
     OPTIMISM: "OPTIMISM";
+    CELO: "CELO";
 };
 export { initProtocol, yieldObservables, yieldFunctions, yieldConstants, viewObservables, viewFunctions, yieldConfig };

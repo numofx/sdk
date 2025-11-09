@@ -1,4 +1,4 @@
-import { maxBaseIn, sellBase, sellFYToken } from '@yield-protocol/ui-math';
+import { maxBaseIn, sellBase, sellFYToken } from '@numo-engine/math';
 import { combineLatest, filter, map, Observable } from 'rxjs';
 import { selectedø } from '../observables';
 import { W3bNumber } from '../types';

@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 
 import {  IAssetRoot, ISeriesRoot, IYieldConfig } from '../types';
-import { Ladle, Cauldron, Pool__factory, FYToken__factory } from '@yield-protocol/ui-contracts';
+import { Ladle, Cauldron, Pool__factory, FYToken__factory } from '@numo-engine/contracts';
 
 import { getBrowserCachedValue, setBrowserCachedValue } from '../utils/appUtils';
 import { dateFromMaturity } from '../utils/yieldUtils';

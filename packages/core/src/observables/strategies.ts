@@ -9,9 +9,9 @@ import {
   lastValueFrom,
 } from 'rxjs';
 import { BigNumber, ethers } from 'ethers';
-import { mulDecimal, divDecimal } from '@yield-protocol/ui-math';
+import { mulDecimal, divDecimal } from '@numo-engine/math';
 
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 import { IStrategy, IStrategyRoot, MessageType } from '../types';
 
 import { accountø, providerø } from './connection';

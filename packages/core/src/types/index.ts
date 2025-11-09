@@ -1,6 +1,6 @@
 import { ethers, BigNumber, BigNumberish, ContractTransaction, Contract } from 'ethers';
 import { Observable } from 'rxjs';
-import { Cauldron, FYToken, Ladle, Pool, Strategy, Witch } from '@yield-protocol/ui-contracts';
+import { Cauldron, FYToken, Ladle, Pool, Strategy, Witch } from '@numo-engine/contracts';
 import { ISelected } from '../observables/selected';
 
 export * from './messages';

@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 
 import { ARBITRUM, ETHEREUM } from '../utils/constants';
 import { moduleAddresses } from '../config';
@@ -11,19 +11,28 @@ export const buildModuleMap = (provider: ethers.providers.BaseProvider, chainId:
   /** Inititiate contracts (and distribution as a map) */
   const moduleMap = new Map<string, Contract>([]);
 
+  /** If no module addresses configured for this chain, return empty map */
+  if (!_moduleAddresses) {
+    return moduleMap;
+  }
+
   /** Common modules for all chains */
-  moduleMap.set(
-    'WrapEtherModule',
-    contracts.WrapEtherModule__factory.connect(_moduleAddresses!.WrapEtherModule, provider)
-  );
+  if (_moduleAddresses.WrapEtherModule) {
+    moduleMap.set(
+      'WrapEtherModule',
+      contracts.WrapEtherModule__factory.connect(_moduleAddresses.WrapEtherModule, provider)
+    );
+  }
 
   /** Modules Contracts For Ethereum Chains */
   if ( chainId === 1 ) { // supportedChains.get(ETHEREUM)!.includes(chainId)) {
     // Modules
-    moduleMap.set(
-      'ConvexLadleModule',
-      contracts.ConvexLadleModule__factory.connect(_moduleAddresses!.ConvexLadleModule as string, provider)
-    );
+    if (_moduleAddresses.ConvexLadleModule) {
+      moduleMap.set(
+        'ConvexLadleModule',
+        contracts.ConvexLadleModule__factory.connect(_moduleAddresses.ConvexLadleModule, provider)
+      );
+    }
   }
 
   /** Modules For Arbitrum Chains */

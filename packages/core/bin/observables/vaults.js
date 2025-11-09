@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateVaults = exports.vaultsø = void 0;
 const tslib_1 = require("tslib");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const ethers_1 = require("ethers");
 const rxjs_1 = require("rxjs");
 const initVaults_1 = require("../buildProtocol/initVaults");
@@ -68,7 +68,7 @@ const _updateVault = (vault, account, protocol, suppressEventLogQueries) => tsli
         cauldron.vaults(vault.id),
         suppressEventLogQueries
             ? []
-            : witch.queryFilter(witch.filters.Auctioned((0, ui_math_1.bytesToBytes32)(vault.id, 12), null), 'earliest', 'latest'),
+            : witch.queryFilter(witch.filters.Auctioned((0, math_1.bytesToBytes32)(vault.id, 12), null), 'earliest', 'latest'),
     ]);
     /* Check for liquidation event date */
     const liquidationDate = liquidations.length ? liquidations[0].args.start.toNumber() : undefined;
@@ -81,11 +81,11 @@ const _updateVault = (vault, account, protocol, suppressEventLogQueries) => tsli
     let rate = ethers_1.BigNumber.from('1');
     if (series && seriesIsMature) {
         rateAtMaturity = yield cauldron.ratesAtMaturity(seriesId);
-        [rate] = yield RateOracle.peek((0, ui_math_1.bytesToBytes32)(vault.baseId, 6), '0x5241544500000000000000000000000000000000000000000000000000000000', // bytes for 'RATE'
+        [rate] = yield RateOracle.peek((0, math_1.bytesToBytes32)(vault.baseId, 6), '0x5241544500000000000000000000000000000000000000000000000000000000', // bytes for 'RATE'
         '0');
         [accruedArt] = rateAtMaturity.gt(utils_1.ZERO_BN)
-            ? (0, ui_math_1.calcAccruedDebt)(rate, rateAtMaturity, art)
-            : (0, ui_math_1.calcAccruedDebt)(rate, rate, art);
+            ? (0, math_1.calcAccruedDebt)(rate, rateAtMaturity, art)
+            : (0, math_1.calcAccruedDebt)(rate, rate, art);
     }
     return Object.assign(Object.assign({}, vault), { owner, isActive: owner === account, // refreshed in case owner has been updated
         seriesId,

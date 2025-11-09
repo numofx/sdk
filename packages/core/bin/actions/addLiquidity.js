@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addLiquidity = void 0;
 const tslib_1 = require("tslib");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const ethers_1 = require("ethers");
 const rxjs_1 = require("rxjs");
 const chainActions_1 = require("../chainActions");
@@ -27,13 +27,13 @@ const addLiquidity = (amount, strategy, method = types_1.AddLiquidityType.BUY, m
         const txCode = (0, utils_1.getProcessCode)(types_1.ActionCodes.ADD_LIQUIDITY, strategy.id);
         const matchingVaultId = matchingVault ? matchingVault.id : undefined;
         const _amount = (0, yieldUtils_1.inputToTokenValue)(amount, _base === null || _base === void 0 ? void 0 : _base.decimals);
-        const _amountLessSlippage = (0, ui_math_1.calculateSlippage)(_amount, slippageTolerance.toString(), true);
+        const _amountLessSlippage = (0, math_1.calculateSlippage)(_amount, slippageTolerance.toString(), true);
         const [cachedBaseReserves, cachedFyTokenReserves] = yield (_series === null || _series === void 0 ? void 0 : _series.poolContract.getCache());
         const cachedRealReserves = cachedFyTokenReserves.sub(_series === null || _series === void 0 ? void 0 : _series.totalSupply.big.sub(utils_1.ONE_BN));
-        const [_fyTokenToBeMinted] = (0, ui_math_1.fyTokenForMint)(cachedBaseReserves, cachedRealReserves, cachedFyTokenReserves, _amountLessSlippage, _series.getTimeTillMaturity(), _series.ts, _series.g1, _series.decimals, slippageTolerance);
-        const [minRatio, maxRatio] = (0, ui_math_1.calcPoolRatios)(cachedBaseReserves, cachedRealReserves);
-        const [_baseToPool, _baseToFyToken] = (0, ui_math_1.splitLiquidity)(cachedBaseReserves, cachedRealReserves, _amountLessSlippage, true);
-        const _baseToPoolWithSlippage = ethers_1.BigNumber.from((0, ui_math_1.calculateSlippage)(_baseToPool, slippageTolerance.toString()));
+        const [_fyTokenToBeMinted] = (0, math_1.fyTokenForMint)(cachedBaseReserves, cachedRealReserves, cachedFyTokenReserves, _amountLessSlippage, _series.getTimeTillMaturity(), _series.ts, _series.g1, _series.decimals, slippageTolerance);
+        const [minRatio, maxRatio] = (0, math_1.calcPoolRatios)(cachedBaseReserves, cachedRealReserves);
+        const [_baseToPool, _baseToFyToken] = (0, math_1.splitLiquidity)(cachedBaseReserves, cachedRealReserves, _amountLessSlippage, true);
+        const _baseToPoolWithSlippage = ethers_1.BigNumber.from((0, math_1.calculateSlippage)(_baseToPool, slippageTolerance.toString()));
         /* if approveMAx, check if signature is still required */
         const alreadyApproved = (yield _base.getAllowance(account, ladleAddress)).gte(_amount);
         /* if ethBase */

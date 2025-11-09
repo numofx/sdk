@@ -1,5 +1,5 @@
 import { signDaiPermit, signERC2612Permit } from 'eth-permit';
-import { ERC20Permit__factory, ERC1155__factory } from '@yield-protocol/ui-contracts';
+import { ERC20Permit__factory, ERC1155__factory } from '@numo-engine/contracts';
 import {
   ISignData,
   ICallData,

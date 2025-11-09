@@ -8,11 +8,11 @@ import {
   mulDecimal,
   divDecimal,
   ZERO_BN,
-} from '@yield-protocol/ui-math';
+} from '@numo-engine/math';
 
 import request from 'graphql-request';
 
-import * as contracts from '@yield-protocol/ui-contracts';
+import * as contracts from '@numo-engine/contracts';
 
 import { ISeries, ISeriesRoot, MessageType } from '../types';
 import { accountø, providerø } from './connection';

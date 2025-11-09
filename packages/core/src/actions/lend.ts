@@ -1,4 +1,4 @@
-import { sellBase, calculateSlippage } from '@yield-protocol/ui-math';
+import { sellBase, calculateSlippage } from '@numo-engine/math';
 import { ETH_BASED_ASSETS } from '../config/assetsConfig';
 import {
   chainIdø,

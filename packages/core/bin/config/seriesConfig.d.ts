@@ -4,3 +4,4 @@ export interface SeriesInfo {
 }
 export declare const SERIES_1: Map<string, SeriesInfo>;
 export declare const SERIES_42161: Map<string, SeriesInfo>;
+export declare const SERIES_42220: Map<string, SeriesInfo>;

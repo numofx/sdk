@@ -7,7 +7,7 @@ import {
   strategyTokenValue,
   sellFYToken,
   secondsToFrom,
-} from '@yield-protocol/ui-math';
+} from '@numo-engine/math';
 import { BigNumber, ethers } from 'ethers';
 import { combineLatest, filter, map, Observable } from 'rxjs';
 import { selectedø, userSettingsø, vaultsø } from '../observables';
