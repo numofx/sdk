@@ -1,6 +1,6 @@
 import { IVaultRoot, IYieldConfig, IYieldProtocol } from '../types';
 import { getBrowserCachedValue, setBrowserCachedValue } from '../utils/appUtils';
-import { Cauldron } from '@yield-protocol/ui-contracts';
+import { Cauldron } from '@numo-engine/contracts';
 import { generateVaultName } from '../utils/yieldUtils';
 import { ethers } from 'ethers';
 

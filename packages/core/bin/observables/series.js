@@ -4,9 +4,9 @@ exports.updateSeries = exports.seriesø = void 0;
 const tslib_1 = require("tslib");
 const rxjs_1 = require("rxjs");
 const ethers_1 = require("ethers");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const graphql_request_1 = tslib_1.__importDefault(require("graphql-request"));
-const contracts = tslib_1.__importStar(require("@yield-protocol/ui-contracts"));
+const contracts = tslib_1.__importStar(require("@numo-engine/contracts"));
 const types_1 = require("../types");
 const connection_1 = require("./connection");
 const protocol_1 = require("./protocol");
@@ -87,7 +87,7 @@ const _chargeSeries = (series, provider) => {
         /* pre-set the allowance fns */
         getFyTokenAllowance: (acc, spender) => tslib_1.__awaiter(void 0, void 0, void 0, function* () { return fyTokenContract.allowance(acc, spender); }), getPoolAllowance: (acc, spender) => tslib_1.__awaiter(void 0, void 0, void 0, function* () { return poolContract.allowance(acc, spender); }), 
         /* initialise all the dynamic fields to zero/false */
-        sharesReserves: yieldUtils_1.ZERO_W3B, fyTokenReserves: yieldUtils_1.ZERO_W3B, fyTokenRealReserves: yieldUtils_1.ZERO_W3B, totalSupply: yieldUtils_1.ZERO_W3B, apr: `0`, seriesIsMature: false, c: ui_math_1.ZERO_BN, mu: ui_math_1.ZERO_BN, poolAPY: undefined, showSeries: false, getShares: () => ui_math_1.ZERO_BN, getBase: () => ui_math_1.ZERO_BN });
+        sharesReserves: yieldUtils_1.ZERO_W3B, fyTokenReserves: yieldUtils_1.ZERO_W3B, fyTokenRealReserves: yieldUtils_1.ZERO_W3B, totalSupply: yieldUtils_1.ZERO_W3B, apr: `0`, seriesIsMature: false, c: math_1.ZERO_BN, mu: math_1.ZERO_BN, poolAPY: undefined, showSeries: false, getShares: () => math_1.ZERO_BN, getBase: () => math_1.ZERO_BN });
 };
 /**
  *
@@ -138,8 +138,8 @@ const _updateSeriesInfo = (series) => tslib_1.__awaiter(void 0, void 0, void 0, 
     const getBase = (sharesAmount) => sharesAmount.mul(currentSharePrice).div(Math.pow(10, series.decimals));
     const rateCheckAmount = ethers_1.ethers.utils.parseUnits(assetsConfig_1.ETH_BASED_ASSETS.includes(series.baseId) ? '.001' : '1', series.decimals);
     /* Calculates the base/fyToken unit selling price */
-    const _sellRate = (0, ui_math_1.sellFYToken)(sharesReserves, fyTokenReserves, rateCheckAmount, (0, ui_math_1.secondsToFrom)(series.maturity.toString()), series.ts, series.g2, series.decimals);
-    const apr = (0, ui_math_1.calculateAPR)((0, ui_math_1.floorDecimal)(_sellRate), rateCheckAmount, series.maturity) || '0';
+    const _sellRate = (0, math_1.sellFYToken)(sharesReserves, fyTokenReserves, rateCheckAmount, (0, math_1.secondsToFrom)(series.maturity.toString()), series.ts, series.g2, series.decimals);
+    const apr = (0, math_1.calculateAPR)((0, math_1.floorDecimal)(_sellRate), rateCheckAmount, series.maturity) || '0';
     // fetch the euler eToken supply APY from their subgraph
     const poolAPY = sharesTokenAddress ? yield getPoolAPY(sharesTokenAddress) : undefined;
     const seriesIsMature = series.isMature();
@@ -163,7 +163,7 @@ const _updateSeriesAccountInfo = (series, account) => tslib_1.__awaiter(void 0, 
         series.poolContract.balanceOf(account),
         series.fyTokenContract.balanceOf(account),
     ]);
-    const poolPercentOwned = (0, ui_math_1.mulDecimal)((0, ui_math_1.divDecimal)(poolTokenBalance, series.totalSupply.big), '100');
+    const poolPercentOwned = (0, math_1.mulDecimal)((0, math_1.divDecimal)(poolTokenBalance, series.totalSupply.big), '100');
     return Object.assign(Object.assign({}, series), { poolTokenBalance: (0, yieldUtils_1.bnToW3bNumber)(poolTokenBalance, series.decimals), fyTokenBalance: (0, yieldUtils_1.bnToW3bNumber)(fyTokenBalance, series.decimals), poolPercentOwned });
 });
 /* TODO  get this the hell out of Dodg into its own place */

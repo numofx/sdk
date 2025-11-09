@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repayDebt = void 0;
 const tslib_1 = require("tslib");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const ethers_1 = require("ethers");
 const assetsConfig_1 = require("../config/assetsConfig");
-const ui_contracts_1 = require("@yield-protocol/ui-contracts");
+const contracts_1 = require("@numo-engine/contracts");
 const types_1 = require("../types");
 const constants_1 = require("../utils/constants");
 const yieldUtils_1 = require("../utils/yieldUtils");
@@ -37,16 +37,16 @@ const repayDebt = (amount, vault, reclaimCollateral = true) => tslib_1.__awaiter
         /* is convex-type collateral */
         const isConvexCollateral = assetsConfig_1.CONVEX_BASED_ASSETS.includes(ilk.proxyId);
         // TODO: this is a bit of an anti-pattern ?? 
-        const convexJoinContract = ui_contracts_1.ConvexJoin__factory.connect(ilk.joinAddress, provider);
+        const convexJoinContract = contracts_1.ConvexJoin__factory.connect(ilk.joinAddress, provider);
         /* Parse amounts */
         const _amount = (0, yieldUtils_1.inputToTokenValue)(amount, base.decimals);
-        const _maxBaseIn = (0, ui_math_1.maxBaseIn)(series.sharesReserves.big, series.fyTokenReserves.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
+        const _maxBaseIn = (0, math_1.maxBaseIn)(series.sharesReserves.big, series.fyTokenReserves.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
         /* Check the max amount of the trade that the pool can handle */
         const tradeIsNotPossible = _amount.gt(_maxBaseIn);
         const _amountAsFyToken = series.isMature()
             ? _amount
-            : (0, ui_math_1.sellBase)(series.sharesReserves.big, series.fyTokenReserves.big, _amount, (0, ui_math_1.secondsToFrom)(series.maturity.toString()), series.ts, series.g1, series.decimals);
-        const _amountAsFyTokenWithSlippage = (0, ui_math_1.calculateSlippage)(_amountAsFyToken, slippageTolerance.toString(), true // minimize
+            : (0, math_1.sellBase)(series.sharesReserves.big, series.fyTokenReserves.big, _amount, (0, math_1.secondsToFrom)(series.maturity.toString()), series.ts, series.g1, series.decimals);
+        const _amountAsFyTokenWithSlippage = (0, math_1.calculateSlippage)(_amountAsFyToken, slippageTolerance.toString(), true // minimize
         );
         /* Check if amount is more than the debt */
         const amountGreaterThanEqualDebt = ethers_1.ethers.BigNumber.from(_amountAsFyToken).gte(vault.accruedArt.big);

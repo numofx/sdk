@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updatePair = exports.assetPairsø = void 0;
 const tslib_1 = require("tslib");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const ethers_1 = require("ethers");
 const rxjs_1 = require("rxjs");
 const config_1 = require("../config");
@@ -54,7 +54,7 @@ const updatePair = (baseId, ilkId, chainId) => tslib_1.__awaiter(void 0, void 0,
         let price;
         try {
             // eslint-disable-next-line prefer-const
-            [price] = yield PriceOracle.peek((0, ui_math_1.bytesToBytes32)(ilkId, 6), (0, ui_math_1.bytesToBytes32)(baseId, 6), (0, ui_math_1.decimal18ToDecimalN)(utils_1.WAD_BN, ilk.decimals));
+            [price] = yield PriceOracle.peek((0, math_1.bytesToBytes32)(ilkId, 6), (0, math_1.bytesToBytes32)(baseId, 6), (0, math_1.decimal18ToDecimalN)(utils_1.WAD_BN, ilk.decimals));
         }
         catch (error) {
             price = ethers_1.ethers.constants.Zero;

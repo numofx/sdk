@@ -26,6 +26,9 @@ const USDC_2306 = '0x0032ff00028b';
 const DAI_2306 = '0x0031ff00028b';
 const WETH_2306 = '0x0030ff00028b';
 const FRAX_2306 = '0x0138ff00028b';
+// Celo Mainnet Series (2602 - Feb 2026)
+const cKES_2602 = '0x404000002602';
+const USDT_CELO_2602 = '0x404100002602';
 const SERIES = new Map();
 SERIES.set(1, new Map([
     [
@@ -872,6 +875,49 @@ SERIES.set(42161, new Map([
             ts: '10628037201',
             g1: '16602069666338596454',
             g2: '20496382304121724017',
+        },
+    ],
+]));
+// Celo Mainnet Series (Chain ID: 42220)
+SERIES.set(42220, new Map([
+    [
+        cKES_2602,
+        {
+            id: cKES_2602,
+            baseId: '0x404000000000',
+            maturity: 1787840801,
+            name: 'fyCKES2602',
+            symbol: 'fyCKES2602',
+            address: '0x774Dce3065C04A61D564470f78b07411Bd38edc5',
+            decimals: 18,
+            version: '1',
+            poolAddress: '0x0870dE39Aab3046cAC6E2F6Bc0Bd7c8e61c30f1f',
+            poolName: 'fyCKES2602 LP',
+            poolSymbol: 'fyCKES2602LP',
+            poolVersion: '1',
+            ts: '2339826654429',
+            g1: '18409850649371967213',
+            g2: '18483637571047583641', // 1.002 in 64.64 format (1 / 0.998)
+        },
+    ],
+    [
+        USDT_CELO_2602,
+        {
+            id: USDT_CELO_2602,
+            baseId: '0x404100000000',
+            maturity: 1787840801,
+            name: 'fyUSDT2602',
+            symbol: 'fyUSDT2602',
+            address: '0xCD3F00B3C646210DE13557d6C555E98efea7F767',
+            decimals: 6,
+            version: '1',
+            poolAddress: '0x84b5f96510C160D7Ca1Db2540339Fab7646e9F33',
+            poolName: 'fyUSDT2602 LP',
+            poolSymbol: 'fyUSDT2602LP',
+            poolVersion: '1',
+            ts: '2339826654429',
+            g1: '18409850649371967213',
+            g2: '18483637571047583641', // 1.002 in 64.64 format (1 / 0.998)
         },
     ],
 ]));

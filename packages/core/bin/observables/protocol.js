@@ -5,7 +5,7 @@ const tslib_1 = require("tslib");
 const rxjs_1 = require("rxjs");
 const ethers_1 = require("ethers");
 const types_1 = require("../types");
-const contracts = tslib_1.__importStar(require("@yield-protocol/ui-contracts"));
+const contracts = tslib_1.__importStar(require("@numo-engine/contracts"));
 const messages_1 = require("./messages");
 // TODO: try to get rid of this init?
 const _blankProtocol = {

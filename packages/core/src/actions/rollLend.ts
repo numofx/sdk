@@ -1,4 +1,4 @@
-import { buyBase, calculateSlippage } from '@yield-protocol/ui-math';
+import { buyBase, calculateSlippage } from '@numo-engine/math';
 import { ethers } from 'ethers';
 import { combineLatest, take } from 'rxjs';
 import { sign, transact } from '../chainActions';

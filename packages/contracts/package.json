@@ -1,16 +1,19 @@
 {
-  "name": "@yield-protocol/ui-contracts",
+  "name": "@numo-engine/contracts",
   "version": "1.0.5",
   "main": "./bin/index.js",
   "repository": {
-    "url": "git+https://github.com/yieldprotocol/ui-monorepo.git",
+    "url": "git+https://github.com/numo/sdk.git",
     "type": "git"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
-  "description": "",
-  "author": "Yield Inc.",
+  "description": "TypeChain-generated contract wrappers for Numo Engine",
+  "author": "Numo",
+  "dependencies": {
+    "ethers": "^5.5.4"
+  },
   "scripts": {
     "compile": "typechain --target=ethers-v5 './src/abis/*.json' --out-dir './src/' && tsc -b --force",
     "docs": "typedoc"

@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SERIES_42161 = exports.SERIES_1 = void 0;
+exports.SERIES_42220 = exports.SERIES_42161 = exports.SERIES_1 = void 0;
 exports.SERIES_1 = new Map();
 exports.SERIES_42161 = new Map();
+exports.SERIES_42220 = new Map();
 const USDC_2112_SERIES_ID = '0x303230340000';
 const USDC_2203_SERIES_ID = '0x303230350000';
 const USDC_2206_SERIES_ID = '0x303230360000';
@@ -172,5 +173,17 @@ exports.SERIES_42161.set(DAI_2303_SERIES_ID, {
 exports.SERIES_42161.set(WETH_2303_SERIES_ID, {
     fyTokenAddress: '0x8a9262C7C6eC9bb143Eb68798AdB377c95F47138',
     poolAddress: '0x79A6Be1Ae54153AA6Fc7e4795272c63F63B2a6DC',
+});
+/* Celo Mainnet Series (Chain ID: 42220) */
+const cKES_2602_SERIES_ID = '0x404000002602';
+const USDT_CELO_2602_SERIES_ID = '0x404100002602';
+/* 2602 - Feb 2026 */
+exports.SERIES_42220.set(cKES_2602_SERIES_ID, {
+    fyTokenAddress: '0x774Dce3065C04A61D564470f78b07411Bd38edc5',
+    poolAddress: '0x0870dE39Aab3046cAC6E2F6Bc0Bd7c8e61c30f1f',
+});
+exports.SERIES_42220.set(USDT_CELO_2602_SERIES_ID, {
+    fyTokenAddress: '0xCD3F00B3C646210DE13557d6C555E98efea7F767',
+    poolAddress: '0x84b5f96510C160D7Ca1Db2540339Fab7646e9F33',
 });
 //# sourceMappingURL=seriesConfig.js.map

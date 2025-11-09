@@ -1,7 +1,7 @@
-import { maxBaseIn, sellBase, secondsToFrom, calculateSlippage } from '@yield-protocol/ui-math';
+import { maxBaseIn, sellBase, secondsToFrom, calculateSlippage } from '@numo-engine/math';
 import { ethers } from 'ethers';
 import { ETH_BASED_ASSETS, CONVEX_BASED_ASSETS } from '../config/assetsConfig';
-import { ConvexJoin__factory } from '@yield-protocol/ui-contracts';
+import { ConvexJoin__factory } from '@numo-engine/contracts';
 import { IVault, ActionCodes, ISeries, IAsset, ICallData, LadleActions, RoutedActions } from '../types';
 import { ZERO_BN, ONE_BN } from '../utils/constants';
 import { getProcessCode, inputToTokenValue } from '../utils/yieldUtils';

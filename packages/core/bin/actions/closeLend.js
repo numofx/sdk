@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.closeLend = void 0;
 const tslib_1 = require("tslib");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const rxjs_1 = require("rxjs");
 const chainActions_1 = require("../chainActions");
 const assetsConfig_1 = require("../config/assetsConfig");
@@ -25,9 +25,9 @@ const closeLend = (amount, series) => tslib_1.__awaiter(void 0, void 0, void 0, 
         /* buy fyToken value ( after maturity  fytoken === base value ) */
         const _fyTokenValueOfInput = seriesIsMature
             ? _amount
-            : (0, ui_math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, _amount, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
+            : (0, math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, _amount, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
         /* calculate slippage on the base token expected to recieve ie. input */
-        const _inputWithSlippage = (0, ui_math_1.calculateSlippage)(_amount, slippageTolerance.toString(), true);
+        const _inputWithSlippage = (0, math_1.calculateSlippage)(_amount, slippageTolerance.toString(), true);
         /* if ethBase */
         const isEthBase = assetsConfig_1.ETH_BASED_ASSETS.includes(series.baseId);
         /* if approveMAx, check if signature is required */

@@ -21,4 +21,12 @@ export const baseAddresses: Map<number,BaseAddresses> = new Map([
         Witch: '0x08173D0885B00BDD640aaE57D05AbB74cd00d669',
       },
     ],
+    [
+      42220,
+      {
+        Cauldron: '0x0000000000000000000000000000000000000000', // Not deployed - pools only
+        Ladle: '0x0000000000000000000000000000000000000000', // Not deployed - pools only
+        Witch: '0x0000000000000000000000000000000000000000', // Not deployed - pools only
+      },
+    ],
   ]);

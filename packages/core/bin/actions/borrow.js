@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.borrow = void 0;
 const tslib_1 = require("tslib");
 const ethers_1 = require("ethers");
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const assetsConfig_1 = require("../config/assetsConfig");
 const observables_1 = require("../observables");
 const chainActions_1 = require("../chainActions");
@@ -78,8 +78,8 @@ const borrow = (amount, collateralAmount, vault, getValuesFromNetwork = true // 
         /* Calculate expected debt (fytokens) from EITHER network or calculated : default = Network */
         const _expectedFyToken = getValuesFromNetwork
             ? yield series.poolContract.buyBasePreview(_amount)
-            : (0, ui_math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, _amount, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
-        const _expectedFyTokenWithSlippage = (0, ui_math_1.calculateSlippage)(_expectedFyToken, slippageTolerance.toString()); // TODO check this tolereance typing
+            : (0, math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, _amount, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals);
+        const _expectedFyTokenWithSlippage = (0, math_1.calculateSlippage)(_expectedFyToken, slippageTolerance.toString()); // TODO check this tolereance typing
         /* if approveMAx, check if signature is required : note: getAllowance may return FALSE if ERC1155 */
         const _allowance = yield ilk.getAllowance(account, ilk.joinAddress);
         const alreadyApproved = ethers_1.ethers.BigNumber.isBigNumber(_allowance) ? _allowance.gte(_collAmount) : _allowance;
@@ -92,9 +92,9 @@ const borrow = (amount, collateralAmount, vault, getValuesFromNetwork = true // 
             return account;
         };
         /* handle ETH deposit as Collateral, if required (only if collateral used is ETH-based ), else send ZERO_BN */
-        const addEthCallData = yield (0, _addRemoveEth_1.addEth)(isEthCollateral ? _collAmount : ui_math_1.ZERO_BN);
+        const addEthCallData = yield (0, _addRemoveEth_1.addEth)(isEthCollateral ? _collAmount : math_1.ZERO_BN);
         /* handle remove/unwrap WETH > if ETH is what is being borrowed */
-        const removeEthCallData = yield (0, _addRemoveEth_1.removeEth)(isEthBase ? ui_math_1.ONE_BN : ui_math_1.ZERO_BN); // (exit_ether sweeps all the eth out the ladle, so exact amount is not importnat -> just greater than zero)
+        const removeEthCallData = yield (0, _addRemoveEth_1.removeEth)(isEthBase ? math_1.ONE_BN : math_1.ZERO_BN); // (exit_ether sweeps all the eth out the ladle, so exact amount is not importnat -> just greater than zero)
         /* handle wrapping of collateral if required */
         const wrapAssetCallData = yield (0, _wrapUnwrapAsset_1.wrapAsset)(_collAmount, selected.ilk, processCode); // note: selected ilk used here, not wrapped version
         /**

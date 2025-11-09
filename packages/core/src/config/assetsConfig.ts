@@ -61,6 +61,10 @@ export const FUSDC2209 = '0x313700000000';
 /* Convex Curve LP token assets */
 export const CVX3CRV = '0x313900000000';
 
+/* Celo assets */
+export const cKES = '0x404000000000';
+export const USDT_CELO = '0x404100000000';
+
 export const CONVEX_BASED_ASSETS = [
   'CVX3CRV',
   CVX3CRV,
@@ -74,6 +78,7 @@ export const IGNORE_BASE_ASSETS = ['ENS'];
 /* Initiate the ASSET maps */
 export const ASSETS_42161 = new Map<string, IAssetInfo>();
 export const ASSETS_1 = new Map<string, IAssetInfo>();
+export const ASSETS_42220 = new Map<string, IAssetInfo>();
 
 ASSETS_1.set(DAI, {
   address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -391,5 +396,30 @@ ASSETS_42161.set(WETH, {
 
   address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
   joinAddress: '0xaf93a04d5D8D85F69AF65ED66A9717DB0796fB10',
+  isYieldBase: true,
+});
+
+/* Celo Mainnet Assets (Chain ID: 42220) */
+ASSETS_42220.set(cKES, {
+  version: '1',
+  name: 'Celo Kenyan Shilling',
+  decimals: 18,
+  symbol: 'cKES',
+  digitFormat: 2,
+  tokenType: TokenType.ERC20_Permit,
+  address: '0x456a3D042C0DbD3db53D5489e98dFb038553B0d0',
+  joinAddress: '0x0000000000000000000000000000000000000000', // Not used - pools only
+  isYieldBase: true,
+});
+
+ASSETS_42220.set(USDT_CELO, {
+  version: '1',
+  name: 'Tether USD',
+  decimals: 6,
+  symbol: 'USDT',
+  digitFormat: 2,
+  tokenType: TokenType.ERC20_Permit,
+  address: '0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e',
+  joinAddress: '0x0000000000000000000000000000000000000000', // Not used - pools only
   isYieldBase: true,
 });

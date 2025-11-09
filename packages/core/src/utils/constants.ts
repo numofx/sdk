@@ -29,3 +29,4 @@ export const IGNORED_CALLDATA = { operation: '', args: new Array(7), ignoreIf: t
 export const ETHEREUM = 'ETHEREUM';
 export const ARBITRUM = 'ARBITRUM';
 export const OPTIMISM = 'OPTIMISM';
+export const CELO = 'CELO';

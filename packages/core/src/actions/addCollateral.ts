@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { combineLatest, take } from 'rxjs';
 import { sign, transact } from '../chainActions';
 import { ETH_BASED_ASSETS, CONVEX_BASED_ASSETS } from '../config/assetsConfig';
-import { ConvexLadleModule } from '@yield-protocol/ui-contracts';
+import { ConvexLadleModule } from '@numo-engine/contracts';
 import {
   accountø,
   assetsø,

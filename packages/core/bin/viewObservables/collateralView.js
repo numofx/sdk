@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.estimatedLiquidatePriceø = exports.vaultLiquidatePriceø = exports.maxRemovableCollateralø = exports.maxCollateralø = exports.minimumSafePercentø = exports.minimumSafeRatioø = exports.minCollateralRequiredø = exports.isUnhealthyCollateralizationø = exports.isUndercollateralizedø = exports.minCollateralizationPercentø = exports.minCollateralizationRatioø = exports.collateralizationPercentø = exports.collateralizationRatioø = void 0;
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const rxjs_1 = require("rxjs");
 const observables_1 = require("../observables");
 const utils_1 = require("../utils");
@@ -34,11 +34,11 @@ const _totalDebtWithInputø = (0, rxjs_1.combineLatest)([input_1.borrowInputø, 
     const { vault, series } = selected; // we can safetly assume 'series' is defined - not vault.
     const existingDebt_ = (vault === null || vault === void 0 ? void 0 : vault.accruedArt.big) || utils_1.ZERO_BN;
     /* NB NOTE: this whole function ONLY deals with decimal18, existing values are converted to decimal18 */
-    const existingDebtAsWei = (0, ui_math_1.decimalNToDecimal18)(existingDebt_, series.decimals);
+    const existingDebtAsWei = (0, math_1.decimalNToDecimal18)(existingDebt_, series.decimals);
     const newDebt = debtInput.big.gt(utils_1.ZERO_BN)
-        ? (0, ui_math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, debtInput.big, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals)
+        ? (0, math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, debtInput.big, series.getTimeTillMaturity(), series.ts, series.g2, series.decimals)
         : utils_1.ZERO_BN;
-    const newDebtAsWei = (0, ui_math_1.decimalNToDecimal18)(newDebt, series.decimals);
+    const newDebtAsWei = (0, math_1.decimalNToDecimal18)(newDebt, series.decimals);
     const totalDebt = existingDebtAsWei.add(newDebtAsWei);
     config.diagnostics && console.log('Total Debt (d18): ', totalDebt.toString());
     return [totalDebt, existingDebtAsWei]; // as decimal18
@@ -57,9 +57,9 @@ const _totalCollateralWithInputø = (0, rxjs_1.combineLatest)([input_1.collatera
     const { vault, ilk } = selected;
     if (ilk) {
         const existingCollateral_ = (vault === null || vault === void 0 ? void 0 : vault.ink.big) || utils_1.ZERO_BN; // if no vault simply return zero.
-        const existingCollateralAsWei = (0, ui_math_1.decimalNToDecimal18)(existingCollateral_, ilk.decimals);
+        const existingCollateralAsWei = (0, math_1.decimalNToDecimal18)(existingCollateral_, ilk.decimals);
         /* TODO: there is a weird bug if inputting before selecting ilk. */
-        const newCollateralAsWei = (0, ui_math_1.decimalNToDecimal18)(collInput.big, ilk.decimals);
+        const newCollateralAsWei = (0, math_1.decimalNToDecimal18)(collInput.big, ilk.decimals);
         const totalCollateral = existingCollateralAsWei.add(newCollateralAsWei);
         appConfig_1.appConfigø.subscribe(({ diagnostics }) => diagnostics && console.log('Total Collateral (d18): ', totalCollateral.toString()));
         return [totalCollateral, existingCollateralAsWei]; // as decimal18
@@ -85,8 +85,8 @@ exports.collateralizationRatioø = (0, rxjs_1.combineLatest)([
         ((_b = totalDebt[0]) === null || _b === void 0 ? void 0 : _b.gt(utils_1.ZERO_BN)) &&
         !!assetPair) {
         /* NOTE: this function ONLY deals with decimal18, existing values are converted to decimal18 */
-        const pairPriceInWei = (0, ui_math_1.decimalNToDecimal18)(assetPair.pairPrice.big, assetPair.baseDecimals);
-        const ratio = (0, ui_math_1.calculateCollateralizationRatio)(totalCollat[0], pairPriceInWei, totalDebt[0], false);
+        const pairPriceInWei = (0, math_1.decimalNToDecimal18)(assetPair.pairPrice.big, assetPair.baseDecimals);
+        const ratio = (0, math_1.calculateCollateralizationRatio)(totalCollat[0], pairPriceInWei, totalDebt[0], false);
         config.diagnostics && console.log('Collateralisation ratio:', ratio);
         return ratio;
     }
@@ -144,8 +144,8 @@ exports.minCollateralRequiredø = (0, rxjs_1.combineLatest)([
     _totalDebtWithInputø,
     _totalCollateralWithInputø,
 ]).pipe((0, rxjs_1.map)(([assetPair, minCollatRatio, totalDebt, totalCollat]) => {
-    const _pairPriceInWei = (0, ui_math_1.decimalNToDecimal18)(assetPair.pairPrice.big, assetPair.baseDecimals);
-    const _calcMin = (0, ui_math_1.calculateMinCollateral)(_pairPriceInWei, totalDebt[0], minCollatRatio.toString(), totalCollat[1]);
+    const _pairPriceInWei = (0, math_1.decimalNToDecimal18)(assetPair.pairPrice.big, assetPair.baseDecimals);
+    const _calcMin = (0, math_1.calculateMinCollateral)(_pairPriceInWei, totalDebt[0], minCollatRatio.toString(), totalCollat[1]);
     return (0, yieldUtils_1.bnToW3bNumber)(_calcMin, assetPair === null || assetPair === void 0 ? void 0 : assetPair.baseDecimals);
 }), (0, rxjs_1.share)());
 /**
@@ -192,7 +192,7 @@ exports.maxRemovableCollateralø = (0, rxjs_1.combineLatest)([
  * Price at which the vault will get liquidated
  * @category Borrow | Collateral
  * */
-exports.vaultLiquidatePriceø = (0, rxjs_1.combineLatest)([observables_1.selectedø, _selectedPairø]).pipe((0, rxjs_1.filter)(([selected, pairInfo]) => !!selected.vault && !!pairInfo), (0, rxjs_1.map)(([selected, pairInfo]) => (0, ui_math_1.calcLiquidationPrice)(selected.vault.ink.hStr, selected.vault.accruedArt.hStr, pairInfo.minRatio)), (0, rxjs_1.share)());
+exports.vaultLiquidatePriceø = (0, rxjs_1.combineLatest)([observables_1.selectedø, _selectedPairø]).pipe((0, rxjs_1.filter)(([selected, pairInfo]) => !!selected.vault && !!pairInfo), (0, rxjs_1.map)(([selected, pairInfo]) => (0, math_1.calcLiquidationPrice)(selected.vault.ink.hStr, selected.vault.accruedArt.hStr, pairInfo.minRatio)), (0, rxjs_1.share)());
 /**
  * Pre Transaction estimated Price at which a vault / pair  will get liquidated
  * based on collateral and debt INPUT ( and existing colalteral and debt)
@@ -202,5 +202,5 @@ exports.estimatedLiquidatePriceø = (0, rxjs_1.combineLatest)([
     _totalDebtWithInputø,
     _totalCollateralWithInputø,
     _selectedPairø,
-]).pipe((0, rxjs_1.filter)(([, pairInfo]) => !!pairInfo), (0, rxjs_1.map)(([ink, art, pairInfo]) => (0, ui_math_1.calcLiquidationPrice)(ink[0].toString(), art[0].toString(), pairInfo.minRatio)), (0, rxjs_1.share)());
+]).pipe((0, rxjs_1.filter)(([, pairInfo]) => !!pairInfo), (0, rxjs_1.map)(([ink, art, pairInfo]) => (0, math_1.calcLiquidationPrice)(ink[0].toString(), art[0].toString(), pairInfo.minRatio)), (0, rxjs_1.share)());
 //# sourceMappingURL=collateralView.js.map

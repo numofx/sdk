@@ -1,9 +1,9 @@
 {
-  "name": "yield-ui",
-  "packageManager": "yarn@3.1.1",
-  "author": "Yield Inc.",
+  "name": "numo-engine-sdk",
+  "packageManager": "bun@1.0.0",
+  "author": "Numo",
   "repository": {
-    "url": "git+https://github.com/yieldprotocol/ui-monorepo.git",
+    "url": "git+https://github.com/numo/sdk.git",
     "type": "git"
   },
   "private": "true",
@@ -12,19 +12,19 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "document": "typedoc" ,
-    "lint": "yarn run eslint --ext .ts,.tsx .",
+    "lint": "bun run eslint --ext .ts,.tsx .",
     "test": "lerna run test",
     "build": "lerna run build",
-    "prestart": "yarn build",
-    "prepack": "yarn build",
+    "prestart": "bun run build",
+    "prepack": "bun run build",
     "compile": "lerna run compile",
     "startdev": "lerna run watch"
   },
   "dependencies": {
-    "@yield-protocol/ui-core": "^1.0.3",
-    "@yield-protocol/ui-react": "^1.0.3",
-    "@yield-protocol/ui-math": "^1.0.3",
-    "@yield-protocol/ui-contracts": "^1.0.1"
+    "@numo-engine/core": "^1.0.3",
+    "@numo-engine/react": "^1.0.3",
+    "@numo-engine/math": "^1.0.3",
+    "@numo-engine/contracts": "^1.0.1"
   },
   "devDependencies": {
     "esbuild-serve": "^1.0.1",

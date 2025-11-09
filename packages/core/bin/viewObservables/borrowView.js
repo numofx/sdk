@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.maximumRollø = exports.minimumRepayø = exports.maximumRepayø = exports.debtEstimateø = exports.debtAfterRepayø = exports.isRepayLimitedø = exports.isRollVaultPossibleø = exports.isBorrowLimitedø = exports.isBorrowPossibleø = exports.minDebtLimitø = exports.maxDebtLimitø = void 0;
-const ui_math_1 = require("@yield-protocol/ui-math");
+const math_1 = require("@numo-engine/math");
 const rxjs_1 = require("rxjs");
 const observables_1 = require("../observables");
 const messages_1 = require("../observables/messages");
@@ -75,12 +75,12 @@ exports.isRollVaultPossibleø = (0, rxjs_1.combineLatest)([observables_1.selecte
     /*  IF there is ZERO DEBT the vault is always rollable  > so shortcut out this function */
     if (vault.accruedArt.big.eq(utils_1.ZERO_BN))
         return true;
-    const _maxFyTokenIn = (0, ui_math_1.maxFyTokenIn)(futureSeries.sharesReserves.big, futureSeries.fyTokenReserves.big, futureSeries.getTimeTillMaturity(), futureSeries.ts, futureSeries.g2, futureSeries.decimals);
-    const newDebt = (0, ui_math_1.buyBase)(futureSeries.sharesReserves.big, futureSeries.fyTokenReserves.big, vault.accruedArt.big, futureSeries.getTimeTillMaturity(), futureSeries.ts, futureSeries.g2, futureSeries.decimals);
-    const _minCollat = (0, ui_math_1.calculateMinCollateral)(pairInfo.pairPrice.big, newDebt, pairInfo.minRatio.toString(), undefined);
+    const _maxFyTokenIn = (0, math_1.maxFyTokenIn)(futureSeries.sharesReserves.big, futureSeries.fyTokenReserves.big, futureSeries.getTimeTillMaturity(), futureSeries.ts, futureSeries.g2, futureSeries.decimals);
+    const newDebt = (0, math_1.buyBase)(futureSeries.sharesReserves.big, futureSeries.fyTokenReserves.big, vault.accruedArt.big, futureSeries.getTimeTillMaturity(), futureSeries.ts, futureSeries.g2, futureSeries.decimals);
+    const _minCollat = (0, math_1.calculateMinCollateral)(pairInfo.pairPrice.big, newDebt, pairInfo.minRatio.toString(), undefined);
     // conditions for allowing rolling
     const areRollConditionsMet = vault.accruedArt.big.lt(_maxFyTokenIn) &&
-        (0, ui_math_1.decimalNToDecimal18)(vault.ink.big, vault.ilkDecimals).gt(_minCollat) &&
+        (0, math_1.decimalNToDecimal18)(vault.ink.big, vault.ilkDecimals).gt(_minCollat) &&
         vault.accruedArt.big.gt(pairInfo.minDebtLimit.big);
     return areRollConditionsMet;
 }));
@@ -112,7 +112,7 @@ exports.debtEstimateø = (0, rxjs_1.combineLatest)([input_1.borrowInputø, obser
 // simple filter out input changes that are zero, and make sure there is a series selected.
 (0, rxjs_1.filter)(([borrowInput, selected]) => borrowInput.big.gt(utils_1.ZERO_BN) && !!selected.series), (0, rxjs_1.map)(([input, selected]) => {
     const { series, vault } = selected;
-    const estimate = (0, ui_math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, input.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
+    const estimate = (0, math_1.buyBase)(series.sharesReserves.big, series.fyTokenReserves.big, input.big, series.getTimeTillMaturity(), series.ts, series.g1, series.decimals);
     const artPlusEstimate = vault && vault.accruedArt.big.gt(utils_1.ZERO_BN) ? vault.accruedArt.big.add(estimate) : estimate;
     return (0, yieldUtils_1.bnToW3bNumber)(artPlusEstimate, vault === null || vault === void 0 ? void 0 : vault.baseDecimals);
 }));

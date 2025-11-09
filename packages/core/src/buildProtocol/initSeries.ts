@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 
 import { IAssetRoot, ISeriesRoot, IYieldConfig } from '../types';
-import { Ladle, Cauldron, Pool__factory, FYToken__factory } from '@yield-protocol/ui-contracts';
+import { Ladle, Cauldron, Pool__factory, FYToken__factory } from '@numo-engine/contracts';
 
 import { getBrowserCachedValue, setBrowserCachedValue } from '../utils/appUtils';
 import { dateFromMaturity } from '../utils/yieldUtils';
-import { SERIES_1, SERIES_42161 } from '../config';
+import { SERIES_1, SERIES_42161, SERIES_42220 } from '../config';
 
 export const buildSeriesMap = async (
   cauldron: Cauldron,
@@ -18,7 +18,7 @@ export const buildSeriesMap = async (
   const seriesRootMap = new Map();
 
   /* Select correct Asset map based on chainId */
-  let seriesInfoMap = chainId === 1 ? SERIES_1 : SERIES_42161;
+  let seriesInfoMap = chainId === 1 ? SERIES_1 : chainId === 42161 ? SERIES_42161 : SERIES_42220;
 
   await Promise.all(
     Array.from(seriesInfoMap).map(async (x): Promise<void> => {
@@ -27,10 +27,14 @@ export const buildSeriesMap = async (
       const fyTokenAddress = x[1].fyTokenAddress;
       const poolAddress = x[1].poolAddress;
 
-      const { maturity } = await cauldron.series(id);
-
       const poolContract = Pool__factory.connect(poolAddress, provider);
       const fyTokenContract = FYToken__factory.connect(fyTokenAddress, provider);
+
+      // For Celo (42220) or chains without Cauldron, get maturity from fyToken
+      // Otherwise use Cauldron for consistency with existing behavior
+      const maturity = chainId === 42220
+        ? await fyTokenContract.maturity()
+        : (await cauldron.series(id)).maturity;
 
       const [name, symbol, version, decimals, poolName, poolVersion, poolSymbol, ts, g1, g2] = await Promise.all([
         fyTokenContract.name(),
@@ -91,6 +95,6 @@ export const buildSeriesMap = async (
     // setBrowserCachedValue(`${chainId}_lastSeriesUpdate`, _blockNum);
   }
 
-  console.log(`Yield Protocol SERIES data updated [Block: ${_blockNum}]`);
+  console.log(`Numo Engine SERIES data updated [Block: ${_blockNum}]`);
   return seriesRootMap;
 };

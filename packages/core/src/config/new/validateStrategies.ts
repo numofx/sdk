@@ -1,5 +1,5 @@
 import {BaseProvider} from "@ethersproject/providers";
-import { Strategy__factory } from "@yield-protocol/ui-contracts";
+import { Strategy__factory } from "@numo-engine/contracts";
 import STRATEGIES, { StrategyInfo } from "./strategies";
 
 export const validateStrategies = async (provider: BaseProvider) => {

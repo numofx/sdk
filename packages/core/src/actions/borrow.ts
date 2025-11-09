@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
-import { buyBase, calculateSlippage, ONE_BN, ZERO_BN } from '@yield-protocol/ui-math';
+import { buyBase, calculateSlippage, ONE_BN, ZERO_BN } from '@numo-engine/math';
 
 import { ETH_BASED_ASSETS, CONVEX_BASED_ASSETS } from '../config/assetsConfig';
-import { ConvexLadleModule } from '@yield-protocol/ui-contracts';
+import { ConvexLadleModule } from '@numo-engine/contracts';
 
 import { accountø, assetsø,  protocolø, seriesø, vaultsø, selectedø, userSettingsø, updateVaults } from '../observables';
 import { sign, transact } from '../chainActions';

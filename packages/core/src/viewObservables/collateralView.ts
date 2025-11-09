@@ -4,7 +4,7 @@ import {
   calculateCollateralizationRatio,
   calculateMinCollateral,
   calcLiquidationPrice,
-} from '@yield-protocol/ui-math';
+} from '@numo-engine/math';
 import { BigNumber } from 'ethers';
 import { combineLatest, distinctUntilChanged, filter, map, Observable, share, withLatestFrom } from 'rxjs';
 import { selectedø } from '../observables';

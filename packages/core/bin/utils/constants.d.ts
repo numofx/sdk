@@ -27,3 +27,4 @@ export declare const IGNORED_CALLDATA: {
 export declare const ETHEREUM = "ETHEREUM";
 export declare const ARBITRUM = "ARBITRUM";
 export declare const OPTIMISM = "OPTIMISM";
+export declare const CELO = "CELO";

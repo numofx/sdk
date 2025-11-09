@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateSeries = void 0;
 const tslib_1 = require("tslib");
-const ui_contracts_1 = require("@yield-protocol/ui-contracts");
+const contracts_1 = require("@numo-engine/contracts");
 // import { Cauldron__factory, FYToken__factory, Pool__factory } from '../contracts';
 const series_1 = tslib_1.__importDefault(require("./series"));
 // TODO validate series
@@ -11,9 +11,9 @@ const validateSeries = (provider, cauldronAddress) => tslib_1.__awaiter(void 0, 
     const chainId = (yield provider.getNetwork()).chainId;
     const seriesList = series_1.default.get(chainId); // TODO throw if not available
     seriesList.forEach((s) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        const poolContract = ui_contracts_1.Pool__factory.connect(s.poolAddress, provider);
-        const fyTokenContract = ui_contracts_1.FYToken__factory.connect(s.address, provider);
-        const cauldron = ui_contracts_1.Cauldron__factory.connect(cauldronAddress, provider);
+        const poolContract = contracts_1.Pool__factory.connect(s.poolAddress, provider);
+        const fyTokenContract = contracts_1.FYToken__factory.connect(s.address, provider);
+        const cauldron = contracts_1.Cauldron__factory.connect(cauldronAddress, provider);
         console.log(chainId, cauldronAddress);
         try {
             const { maturity, baseId } = yield cauldron.series(s.id);
