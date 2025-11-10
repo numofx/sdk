@@ -1,6 +1,0 @@
-{
-  "npmClient": "yarn",
-  "ignoreChanges": ["**/*.md", "**/*.spec.ts"],
-  "version": "independent",
-  "useWorkspaces": true
-}

@@ -1,7 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.calculateMinCollateral = exports.calculateCollateralizationRatio = exports.calculateAPR = exports.calculateSlippage = exports.splitLiquidity = exports.fyTokenForMint = exports.invariant = exports.maxFyTokenOut = exports.maxFyTokenIn = exports.maxBaseOut = exports.maxBaseIn = exports.buyFYToken = exports.buyBase = exports.sellFYToken = exports.sellBase = exports.burnForBase = exports.mintWithBase = exports.burnFromStrategy = exports.burn = exports.mint = exports._getC = exports.divDecimal = exports.mulDecimal = exports.baseIdFromSeriesId = exports.toBn = exports.floorDecimal = exports.secondsToFrom = exports.bytesToBytes32 = exports.decimal18ToDecimalN = exports.decimalNToDecimal18 = exports.mu_DEFAULT = exports.c_DEFAULT = exports.g2_DEFAULT = exports.g1_DEFAULT = exports.k = exports.secondsInTenYears = exports.secondsInOneYear = exports.SECONDS_PER_YEAR = exports.WAD_BN = exports.WAD_RAY_BN = exports.MINUS_ONE_BN = exports.ONE_BN = exports.ZERO_BN = exports.RAY_DEC = exports.MAX_DEC = exports.TWO_DEC = exports.ONE_DEC = exports.ZERO_DEC = exports.MAX_128 = exports.MAX_256 = void 0;
-exports.getSharesAPY = exports.getFyTokenAPY = exports.getFeesAPY = exports.getPoolBaseValue = exports.getFyTokenPrice = exports.getSharesFromBase = exports.getBaseFromShares = exports.getTimeStretchYears = exports.calcInterestRate = exports.changeRateNonTv = exports.calcAccruedDebt = exports.calcPoolRatios = exports.getPoolPercent = exports.strategyTokenValue = exports.newPoolState = exports.calcLiquidationPrice = exports.calculateBorrowingPower = void 0;
+exports.getSharesAPY = exports.getFyTokenAPY = exports.getFeesAPY = exports.getPoolBaseValue = exports.getFyTokenPrice = exports.getSharesFromBase = exports.getBaseFromShares = exports.getTimeStretchYears = exports.calcInterestRate = exports.changeRateNonTv = exports.calcAccruedDebt = exports.calcPoolRatios = exports.getPoolPercent = exports.strategyTokenValue = exports.newPoolState = exports.calcLiquidationPrice = exports.calculateBorrowingPower = exports.calculateMinCollateral = exports.calculateCollateralizationRatio = exports.calculateAPR = exports.calculateSlippage = exports.splitLiquidity = exports._getC = exports.divDecimal = exports.mulDecimal = exports.toBn = exports.floorDecimal = exports.secondsToFrom = exports.decimal18ToDecimalN = exports.decimalNToDecimal18 = exports.mu_DEFAULT = exports.c_DEFAULT = exports.g2_DEFAULT = exports.g1_DEFAULT = exports.k = exports.secondsInTenYears = exports.secondsInOneYear = exports.SECONDS_PER_YEAR = exports.WAD_BN = exports.WAD_RAY_BN = exports.MINUS_ONE_BN = exports.ONE_BN = exports.ZERO_BN = exports.RAY_DEC = exports.MAX_DEC = exports.TWO_DEC = exports.ONE_DEC = exports.ZERO_DEC = exports.MAX_128 = exports.MAX_256 = void 0;
+exports.bytesToBytes32 = bytesToBytes32;
+exports.baseIdFromSeriesId = baseIdFromSeriesId;
+exports.mint = mint;
+exports.burn = burn;
+exports.burnFromStrategy = burnFromStrategy;
+exports.mintWithBase = mintWithBase;
+exports.burnForBase = burnForBase;
+exports.sellBase = sellBase;
+exports.sellFYToken = sellFYToken;
+exports.buyBase = buyBase;
+exports.buyFYToken = buyFYToken;
+exports.maxBaseIn = maxBaseIn;
+exports.maxBaseOut = maxBaseOut;
+exports.maxFyTokenIn = maxFyTokenIn;
+exports.maxFyTokenOut = maxFyTokenOut;
+exports.invariant = invariant;
+exports.fyTokenForMint = fyTokenForMint;
 /* eslint-disable @typescript-eslint/naming-convention */
 const ethers_1 = require("ethers");
 const decimal_js_1 = require("decimal.js");
@@ -69,7 +85,6 @@ exports.decimal18ToDecimalN = decimal18ToDecimalN;
 function bytesToBytes32(x, n) {
     return x + '00'.repeat(32 - n);
 }
-exports.bytesToBytes32 = bytesToBytes32;
 /**
  * TODO: Possibily move this out to general yieldUtils?
  * @param { BigNumber | string } to unix time
@@ -103,7 +118,6 @@ exports.toBn = toBn;
 function baseIdFromSeriesId(seriesId) {
     return seriesId.slice(0, 6).concat('00000000');
 }
-exports.baseIdFromSeriesId = baseIdFromSeriesId;
 /**
  * @param { BigNumber | string } multiplicant
  * @param { BigNumber | string } multiplier
@@ -195,7 +209,6 @@ function mint(sharesReserves, fyTokenReserves, totalSupply, shares, fromBase = f
     const y = fromBase ? fyTokenReserves_.mul(m).div(supply_) : sharesReserves_.mul(m).div(supply_);
     return [(0, exports.toBn)(m), (0, exports.toBn)(y)];
 }
-exports.mint = mint;
 /**
  * @param { BigNumber | string } sharesReserves
  * @param { BigNumber | string } fyTokenRealReserves
@@ -217,7 +230,6 @@ function burn(sharesReserves, fyTokenRealReserves, totalSupply, lpTokens) {
     const y = x.mul(Y).div(S);
     return [(0, exports.toBn)(z), (0, exports.toBn)(y)];
 }
-exports.burn = burn;
 /**
  *
  * @param { BigNumber | string } poolTotalSupply
@@ -234,7 +246,6 @@ function burnFromStrategy(poolTotalSupply, strategyTotalsupply, strategyTokensTo
     const x = pS.mul(tS.div(sS));
     return (0, exports.toBn)(x);
 }
-exports.burnFromStrategy = burnFromStrategy;
 /**
  * @param { BigNumber } sharesReserves
  * @param { BigNumber } fyTokenReservesVirtual
@@ -262,7 +273,6 @@ function mintWithBase(sharesReserves, fyTokenReservesVirtual, fyTokenReservesRea
     const [minted, z2] = mint((0, exports.toBn)(Z2), (0, exports.toBn)(YR2), supply, fyToken, false);
     return [minted, (0, exports.toBn)(z1).add(z2)];
 }
-exports.mintWithBase = mintWithBase;
 /**
  * @param { BigNumber | string } sharesReserves
  * @param { BigNumber | string } fyTokenReservesVirtual
@@ -287,7 +297,6 @@ function burnForBase(sharesReserves, fyTokenReservesVirtual, fyTokenReservesReal
     const z2D = new decimal_js_1.Decimal(z2.toString());
     return (0, exports.toBn)(z1D.add(z2D));
 }
-exports.burnForBase = burnForBase;
 /**
  * Calculates the amount of fyToken a user would get for given amount of shares.
  * fyTokenOutForSharesIn
@@ -331,7 +340,6 @@ function sellBase(sharesReserves, fyTokenReserves, sharesIn, timeTillMaturity, t
     const yFee = y.sub(precisionFee);
     return yFee.isNaN() ? ethers_1.ethers.constants.Zero : (0, exports.decimal18ToDecimalN)((0, exports.toBn)(yFee), decimals);
 }
-exports.sellBase = sellBase;
 /**
  * Calculates the amount of shares a user would get for certain amount of fyToken.
  * sharesOutForFYTokenIn
@@ -375,7 +383,6 @@ function sellFYToken(sharesReserves, fyTokenReserves, fyTokenIn, timeTillMaturit
     const yFee = y.sub(precisionFee);
     return yFee.isNaN() ? ethers_1.ethers.constants.Zero : (0, exports.decimal18ToDecimalN)((0, exports.toBn)(yFee), decimals);
 }
-exports.sellFYToken = sellFYToken;
 /**
  * Calculates the amount of fyToken a user could sell for given amount of shares.
  * fyTokenInForSharesOut
@@ -419,7 +426,6 @@ function buyBase(sharesReserves, fyTokenReserves, sharesOut, timeTillMaturity, t
     const yFee = y.add(precisionFee);
     return yFee.isNaN() ? ethers_1.ethers.constants.Zero : (0, exports.decimal18ToDecimalN)((0, exports.toBn)(yFee), decimals);
 }
-exports.buyBase = buyBase;
 /**
  * Calculates the amount of fyToken a user could buy for given amount of shares.
  * sharesInForFYTokenOut
@@ -465,7 +471,6 @@ fyTokenOut, timeTillMaturity, ts, g1, decimals, c = exports.c_DEFAULT, mu = expo
     const yFee = y.add(precisionFee);
     return yFee.isNaN() ? ethers_1.ethers.constants.Zero : (0, exports.decimal18ToDecimalN)((0, exports.toBn)(yFee), decimals);
 }
-exports.buyFYToken = buyFYToken;
 /**
  * Calculate the max amount of shares that can be sold to into the pool without making the interest rate negative.
  *
@@ -510,7 +515,6 @@ function maxBaseIn(sharesReserves, fyTokenReserves, timeTillMaturity, ts, g1, de
     /* Convert to back to token native decimals, if required */
     return (0, exports.decimal18ToDecimalN)((0, exports.toBn)(safeRes), decimals);
 }
-exports.maxBaseIn = maxBaseIn;
 /**
  * Calculate the max amount of shares that can be bought from the pool.
  * Since the amount of shares that can be purchased is not bounded, maxSharesOut is equivalent to the toal amount of shares in the pool.
@@ -523,7 +527,6 @@ exports.maxBaseIn = maxBaseIn;
 function maxBaseOut(sharesReserves) {
     return sharesReserves;
 }
-exports.maxBaseOut = maxBaseOut;
 /**
  * Calculate the max amount of fyTokens that can be sold to into the pool.
  *
@@ -564,7 +567,6 @@ function maxFyTokenIn(sharesReserves, fyTokenReserves, timeTillMaturity, ts, g2,
     /* convert to back to token native decimals, if required */
     return (0, exports.decimal18ToDecimalN)((0, exports.toBn)(safeRes), decimals);
 }
-exports.maxFyTokenIn = maxFyTokenIn;
 /**
  * Calculate the max amount of fyTokens that can be bought from the pool without making the interest rate negative.
  *
@@ -609,7 +611,6 @@ function maxFyTokenOut(sharesReserves, fyTokenReserves, timeTillMaturity, ts, g1
     /* convert to back to token native decimals, if required */
     return (0, exports.decimal18ToDecimalN)((0, exports.toBn)(safeRes), decimals);
 }
-exports.maxFyTokenOut = maxFyTokenOut;
 /**
  * Calculates the total supply invariant.
  *
@@ -657,7 +658,6 @@ function invariant(sharesReserves, fyTokenReserves, totalSupply, timeTillMaturit
     /* convert to back to token native decimals, if required */
     return (0, exports.decimal18ToDecimalN)((0, exports.toBn)(safeRes), decimals);
 }
-exports.invariant = invariant;
 /**
  * Calculate the amount of fyToken that should be bought when providing liquidity with only underlying.
  * The amount bought leaves a bit of unused underlying, to allow for the pool reserves to change between
@@ -718,7 +718,6 @@ c = exports.c_DEFAULT, mu = exports.mu_DEFAULT, precision = 0.0001 // 0.01% defa
         }
     }
 }
-exports.fyTokenForMint = fyTokenForMint;
 /**
  * Split a certain amount of X liquidity into its two components (eg. shares and fyToken)
  * @param { BigNumber } xReserves // eg. shares reserves

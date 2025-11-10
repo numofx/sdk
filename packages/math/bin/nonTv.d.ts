@@ -331,7 +331,8 @@ export declare const calculateBorrowingPower: (collateralAmount: BigNumber | str
  *
  * @returns {string}
  */
-export declare const calcLiquidationPrice: (collateralAmount: string, debtAmount: string, liquidationRatio: number) => string;
+export declare const calcLiquidationPrice: (collateralAmount: string, //
+debtAmount: string, liquidationRatio: number) => string;
 /**
  *  @param {BigNumber}  baseChange
  * @param {BigNumber}  fyTokenChange
