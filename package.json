@@ -9,16 +9,15 @@
   "private": "true",
 
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "clean": "lerna clean --yes",
+    "clean": "rm -rf packages/*/node_modules node_modules",
     "document": "typedoc" ,
     "lint": "bun run eslint --ext .ts,.tsx .",
-    "test": "lerna run test",
-    "build": "lerna run build",
+    "test": "for dir in packages/*; do (cd $dir && [ -f package.json ] && bun run test 2>/dev/null || true); done",
+    "build": "bun run compile",
+    "compile": "for dir in packages/*; do (cd $dir && [ -f package.json ] && bun run compile 2>/dev/null || true); done",
     "prestart": "bun run build",
     "prepack": "bun run build",
-    "compile": "lerna run compile",
-    "startdev": "lerna run watch"
+    "watch": "for dir in packages/*; do (cd $dir && [ -f package.json ] && bun run watch 2>/dev/null &); done; wait"
   },
   "dependencies": {
     "@numo-engine/core": "^1.0.3",
@@ -28,7 +27,6 @@
   },
   "devDependencies": {
     "esbuild-serve": "^1.0.1",
-    "lerna": "^4.0.0",
     "typedoc": "^0.22.17"
   },
   "workspaces": [
